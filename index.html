@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editora Estação Liberdade</title>
+    <style>
+        /* Estilização global e ajustes padrão */
+        body {
+            margin: 0;
+            height: 100vh;
+            background-color: black;
+            color: white;
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        /* Imagem de fundo configurada com opacidade controlável */
+        #book-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            object-fit: cover;
+            filter: brightness(50%);
+            pointer-events: none;
+            z-index: -1;
+            clip-path: circle(0% at 50% 50%);
+            transition: clip-path 0s;
+        }
+
+        /* Botão com estilo */
+        #more-info {
+            position: absolute;
+            bottom: 20px;
+            padding: 15px 30px;
+            background-color: rgba(255, 255, 255, 0.8);
+            color: black;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            z-index: 1;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        /* Área ativa para o rastreamento do mouse */
+        .hover-area {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Mostrar o botão somente quando dentro da área */
+        #more-info.visible {
+            opacity: 1;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Área para interatividade -->
+    <div class="hover-area"></div>
+
+    <!-- Imagem como pano de fundo -->
+    <img id="book-image" src="suspeito-x.jpg.png" alt="Imagem do livro 'O Suspeito X'">
+
+    <!-- Botão interativo -->
+    <button id="more-info" onclick="window.location.href='https://seuformulario.com'">Saiba Mais</button>
+
+    <script>
+        /* Reconhecimento e "gancho" aos componentes DOM */
+        const bookImage = document.getElementById('book-image');
+        const hoverArea = document.querySelector('.hover-area');
+        const moreInfoButton = document.getElementById('more-info');
+
+        /* Função para atualizar a área visível */
+        function updateClipPath(x, y) {
+            bookImage.style.clipPath = `circle(150px at ${x}px ${y}px)`;
+            const buttonRect = moreInfoButton.getBoundingClientRect();
+
+            // Verifica se o feixe de luz cobre o botão
+            const buttonCenterX = buttonRect.left + buttonRect.width / 2;
+            const buttonCenterY = buttonRect.top + buttonRect.height / 2;
+            const distance = Math.sqrt((x - buttonCenterX) ** 2 + (y - buttonCenterY) ** 2);
+
+            if (distance <= 150) { // Se o centro do botão estiver dentro do feixe de luz
+                moreInfoButton.classList.add('visible');
+            } else {
+                moreInfoButton.classList.remove('visible');
+            }
+        }
+
+        /* Escuta dos movimentos do cursor para desktop */
+        hoverArea.addEventListener('mousemove', (event) => {
+            const mouseX = event.pageX;
+            const mouseY = event.pageY;
+            updateClipPath(mouseX, mouseY);
+        });
+
+        /* Escuta do movimento em dispositivos móveis */
+        hoverArea.addEventListener('touchmove', (event) => {
+            const touch = event.touches[0];
+            const touchX = touch.pageX;
+            const touchY = touch.pageY;
+            updateClipPath(touchX, touchY);
+        });
+
+        /* Caso o cursor ou toque saia da área ativa */
+        hoverArea.addEventListener('mouseleave', () => {
+            bookImage.style.clipPath = `circle(0% at 50% 50%)`;
+            moreInfoButton.classList.remove('visible');
+        });
+        hoverArea.addEventListener('touchend', () => {
+            bookImage.style.clipPath = `circle(0% at 50% 50%)`;
+            moreInfoButton.classList.remove('visible');
+        });
+    </script>
+</body>
+
+</html>
