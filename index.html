@@ -27,8 +27,8 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%); /* Centraliza a imagem */
-            width: 100vw; /* A imagem ocupará toda a largura da tela */
-            height: 100vh; /* A imagem ocupará toda a altura da tela */
+            width: 100%; /* Ajuste para 100% da largura da tela */
+            height: 100%; /* Ajuste para 100% da altura da tela */
             object-fit: cover; /* Garante que a imagem cubra toda a área sem ultrapassar */
             filter: brightness(50%);
             pointer-events: none;
@@ -67,6 +67,21 @@
         /* Mostrar o botão somente quando dentro da área */
         #more-info.visible {
             opacity: 1;
+        }
+
+        /* Ajustes específicos para dispositivos móveis */
+        @media (max-width: 768px) {
+            #book-image {
+                width: 100vw; /* Ajuste para ocupar toda a largura da tela */
+                height: 100vh; /* Ajuste para ocupar toda a altura da tela */
+            }
+        }
+
+        @media (max-width: 480px) {
+            #book-image {
+                width: 100vw;
+                height: 100vh;
+            }
         }
     </style>
 </head>
