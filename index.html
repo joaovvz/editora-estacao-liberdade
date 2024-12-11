@@ -27,9 +27,9 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%); /* Centraliza a imagem */
-            width: 100%; /* Ajuste para 100% da largura da tela */
-            height: 100%; /* Ajuste para 100% da altura da tela */
-            object-fit: cover; /* Garante que a imagem cubra toda a área sem ultrapassar */
+            width: 100vw; /* Garante que a imagem ocupe 100% da largura da tela */
+            height: 100vh; /* Garante que a imagem ocupe 100% da altura da tela */
+            object-fit: cover; /* Garante que a imagem cubra a área sem ultrapassar */
             filter: brightness(50%);
             pointer-events: none;
             z-index: -1;
@@ -72,15 +72,15 @@
         /* Ajustes específicos para dispositivos móveis */
         @media (max-width: 768px) {
             #book-image {
-                width: 100vw; /* Ajuste para ocupar toda a largura da tela */
-                height: 100vh; /* Ajuste para ocupar toda a altura da tela */
+                width: 100vw; /* Garante que a imagem ocupe toda a largura da tela */
+                height: 100vh; /* Garante que a imagem ocupe toda a altura da tela */
             }
         }
 
         @media (max-width: 480px) {
             #book-image {
-                width: 100vw;
-                height: 100vh;
+                width: 100vw; /* Garante que a imagem ocupe toda a largura da tela */
+                height: 100vh; /* Garante que a imagem ocupe toda a altura da tela */
             }
         }
     </style>
